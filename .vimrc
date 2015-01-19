@@ -26,45 +26,149 @@ set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 "set fileencodings=ucs-bom,utf-8,cp936
 "set fileencoding=utf-8
 
-
+"set go=             " 不要图形按钮 影响菜单栏 
 "用Ctr+F2<C-F2>键呼出菜单栏/工具栏；待不使用时，用F2键将其关闭。
 "用F2键呼出菜单栏/工具栏；待不使用时，用F2键将其关闭。
 "Toggle Menu and Toolbar
-set guioptions-=m
-set guioptions-=T
-map <silent> <F2> :if &guioptions =~# 'T' <Bar>
-        \set guioptions-=T <Bar>
+set guioptions-=m           " 隐藏菜单栏  
+set guioptions-=T           " 隐藏工具栏 
+"map <silent> <F2> :if &guioptions =~# 'T' <Bar>
+"        \set guioptions-=T <Bar>
+"        \set guioptions-=m <bar>
+"    \else <Bar>
+"        \set guioptions+=T <Bar>
+"        \set guioptions+=m <Bar>
+"    \endif<CR>
+
+map <silent> <F2> :if &guioptions =~# 'm' <Bar>
         \set guioptions-=m <bar>
     \else <Bar>
-        \set guioptions+=T <Bar>
         \set guioptions+=m <Bar>
     \endif<CR>
 
-"set guioptions-=T           " 隐藏工具栏
-"set guioptions-=m           " 隐藏菜单栏
 
 
 
-
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Vundle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限 
 " 不要使用vi的键盘模式，而是vim自己的
 set nocompatible
+filetype off                  " required 插件设置完成再设置打开文件类型检查
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+"set rtp+=$HOME/.vim/bundle/vundle/ "Windows下
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo Github网站上非vim-scripts仓库的插件需填写用户/资源名称
+"Plugin 'tpope/vim-fugitive'
+"vimscripts账号下的项目直接填写名称即可  vim-scripts仓库里的，按下面格式填写
+" plugin from http://vim-scripts.org/vim/scripts.html
+"Plugin 'L9'
+" Git plugin not hosted on GitHub  非github上资源
+"Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Avoid a name conflict with L9
+"Plugin 'user/L9', {'name': 'newL9'}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Color
+"Plugin 'asins/vim-colors'
+
+"Plugin 'scrooloose/nerdtree'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'bling/vim-airline'
+"Plugin 'kien/ctrlp.vim'
+"Plugin 'tacahiroy/ctrlp-funky'
+"Plugin 'jrhorn424/vim-multiple-cursors'
+
+
+Plugin 'asins/vimcdoc'
+"Plugin 'asins/vim-dict'
+
+"Plugin 'Shougo/vimshell.vim'
+"Plugin 'scrooloose/nerdcommenter'
+"Plugin 'asins/renamer.vim'
+"Plugin 'auto_mkdir'
+
+" Syntax
+"Plugin 'othree/html5.vim'
+"Plugin 'othree/html5-syntax.vim'
+"Plugin 'hallison/vim-markdown'
+"Plugin 'pangloss/vim-javascript'
+"Plugin 'nono/jquery.vim'
+"Plugin 'groenewege/vim-less'
+
+" Indent
+"Plugin 'IndentAnything'
+"Plugin 'jiangmiao/simple-javascript-indenter'
+
+
+"Plugin 'Shougo/neocomplete.vim'
+"Plugin 'asins/mark'
+
+" HTML tools
+"Plugin 'mattn/emmet-vim'
+"Plugin 'tpope/vim-ragtag'
+"Plugin 'matchit.zip' " 通过%跳转配对代码
+"Plugin 'MatchTag' " HTML标签高亮配对
+"Plugin 'maksimr/vim-jsbeautify' "HTML/CSS/JS代码格式化
+
+
+
+
+
+
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+
 " 语法高亮
 set syntax=on
 " 显示行号
 set number
 " 突出显示当前行
-set cursorline 
-autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
-autocmd InsertEnter * se cul    " 用浅色高亮当前行 
+"set cursorline 
+"autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
+"autocmd InsertEnter * se cul    " 用浅色高亮当前行 
 " 高亮字符，让其不受100列限制  
 highlight OverLength ctermbg=red ctermfg=white guibg=red guifg=white  
 match OverLength '/%101v.*'
 " 高亮显示匹配的括号
 set showmatch
 " 匹配括号高亮的时间（单位是十分之一秒）
-set matchtime=1             
+set matchtime=1     
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ""状态栏
@@ -90,7 +194,8 @@ highlight StatusLineNC guifg=Gray guibg=White
 " 命令行（在状态行下）的高度，默认为1，这里是2
 set cmdheight=1
 " 输入的命令显示出来，看的清楚些
-set showcmd             
+set showcmd 
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ""实用设置
@@ -142,6 +247,8 @@ nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 " 在处理未保存或只读文件的时候，弹出确认
 set confirm
 
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 文本格式和排版
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -165,8 +272,6 @@ set noexpandtab
 set smarttab
 " 不要换行
 set nowrap
-
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -238,7 +343,6 @@ function! ClosePair(char)
 endfunction
 
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 显示相关  
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -246,10 +350,10 @@ endfunction
 "winpos 5 5          " 设定窗口位置  
 set lines=30 columns=85    " 设定窗口大小  
   
-set go=             " 不要图形按钮  
+
 "set background=dark "背景使用黑色 
 " 设置配色方案
-colorscheme murphy
+colorscheme desert 
  
  
   
@@ -266,14 +370,17 @@ colorscheme murphy
 "字体 
 "if (has("gui_running")) 
 "   set guifont=Bitstream\ Vera\ Sans\ Mono\ 10 
-"endif   
+"endif
+" 设定doc文档目录
+let helptags=$VIM."/vimfiles/doc"
+"set helplang=cn   
 " 显示中文帮助
 if version >= 603
     set helplang=cn
     set encoding=utf-8
 endif
 
- 
+
 
 " quickfix模式
 autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
@@ -296,8 +403,8 @@ func SetTitle()
     else 
         call setline(1, "/*************************************************************************") 
         call append(line("."), "    > File Name: ".expand("%")) 
-        call append(line(".")+1, "    > Author: liyan") 
-        call append(line(".")+2, "    > Mail: liyan@126.com ") 
+        call append(line(".")+1, "    > Author: ma6174") 
+        call append(line(".")+2, "    > Mail: ma6174@163.com ") 
         call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
         call append(line(".")+4, " ************************************************************************/") 
         call append(line(".")+5, "")
